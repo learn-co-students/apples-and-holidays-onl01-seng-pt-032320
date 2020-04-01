@@ -5,75 +5,48 @@ def second_supply_for_fourth_of_july(holiday_hash)
 end
 
 def add_supply_to_winter_holidays(holiday_hash, supply)
-  holiday_hash.each do |season, holidays|
-    if season == :winter
-      holidays.each do |holiday, supplies|
-        supplies << supply 
-      end 
-    end
+  holiday_hash[:winter].each do |holiday, supplies|
+        supplies << supply
   end 
   return holiday_hash
 end 
 
 
 def add_supply_to_memorial_day(holiday_hash, supply)
-  holiday_hash.each do |season, holidays|
-    if season == :spring
-      holidays.each do |holiday, supplies|
-        supplies << supply 
-      end 
-    end
-  end 
+  holiday_hash[:spring][:memorial_day] << supply 
   return holiday_hash
 end 
 
 
 def add_new_holiday_with_supplies(holiday_hash, season, holiday_name, supply_array)
-  holiday_hash.each do |season, holidays|
-    holidays[holiday_name] = supply_array  
-  end 
+  holiday_hash[season][holiday_name] = supply_array  
   return holiday_hash 
 end 
     
 
 
 def all_winter_holiday_supplies(holiday_hash)
-  holiday_supplies = [] 
-  holiday_hash.each do |season, holidays|
-    holidays.each do |holiday, supplies|
-      holiday_supplies << supplies 
-    end
-  end
-  return holiday_supplies.flatten 
+  holiday_supplies[:winter].values.flatten 
 end 
 
 
 
 def all_supplies_in_holidays(holiday_hash)
-  holiday_hash.each do |season, holidays_hash|
-    puts season.to_s.capitalize!
-    holidays_hash.each do |holiday, supplies|
-      puts holiday.to_s.capitalize! 
-      supplies.each do |supply|
-        supply.split 
-        supply.capitalize! 
-        supply.join() 
-      end 
-    end 
+  holiday_hash.each do |season, holidays|
+    puts "#{season.to_s.capitalize!}:"
+    holidays.each do |holiday, supplies|
+      puts "  #{holiday.to_s.split("_").collect{|word|word.capitalize!}.join(" ")}: #{supplies.join(", ")}"
+      binding.pry
+    end
   end 
 end 
-      
-        
-      
-  end
-end 
-  
+    
   # {:winter => {
   #     :christmas => ["Lights", "Wreath"],
   #     :new_years => ["Party Hats"]
   #   },
-  #   :summer => {
-  #     :fourth_of_july => ["Fireworks", "BBQ"]
+  #   :summer => {    
+  #     :fourth_of_july => ["Fireworks", "BBQ"] 
   #   },
   #   :fall => {
   #     :thanksgiving => ["Turkey"]
@@ -90,7 +63,6 @@ end
   #   Fourth Of July: Fireworks, BBQ
   # etc.
 
-end
 
 def all_holidays_with_bbq(holiday_hash)
   # {:winter => {
