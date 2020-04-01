@@ -26,7 +26,7 @@ end
 
 
 def all_winter_holiday_supplies(holiday_hash)
-  holiday_supplies[:winter].values.flatten 
+  holiday_hash[:winter].values.flatten 
 end 
 
 
@@ -36,53 +36,24 @@ def all_supplies_in_holidays(holiday_hash)
     puts "#{season.to_s.capitalize!}:"
     holidays.each do |holiday, supplies|
       puts "  #{holiday.to_s.split("_").collect{|word|word.capitalize!}.join(" ")}: #{supplies.join(", ")}"
-      binding.pry
     end
   end 
 end 
-    
-  # {:winter => {
-  #     :christmas => ["Lights", "Wreath"],
-  #     :new_years => ["Party Hats"]
-  #   },
-  #   :summer => {    
-  #     :fourth_of_july => ["Fireworks", "BBQ"] 
-  #   },
-  #   :fall => {
-  #     :thanksgiving => ["Turkey"]
-  #   },
-  #   :spring => {
-  #     :memorial_day => ["BBQ"]
-  #   }
-  # }
-  # iterate through holiday_hash and print items such that your readout resembles:
-  # Winter:
-  #   Christmas: Lights, Wreath
-  #   New Years: Party Hats
-  # Summer:
-  #   Fourth Of July: Fireworks, BBQ
-  # etc.
-
 
 def all_holidays_with_bbq(holiday_hash)
-  # {:winter => {
-  #     :christmas => ["Lights", "Wreath"],
-  #     :new_years => ["Party Hats"]
-  #   },
-  #   :summer => {
-  #     :fourth_of_july => ["Fireworks", "BBQ"]
-  #   },
-  #   :fall => {
-  #     :thanksgiving => ["Turkey"]
-  #   },
-  #   :spring => {
-  #     :memorial_day => ["BBQ"]
-  #   }
-  # }
-  # return an array of holiday names (as symbols) where supply lists
-  # include the string "BBQ"
-
+  holiday_hash.collect do |season, holidays| 
+   holidays.collect do |holiday, supplies| 
+     if supplies.include?("BBQ") 
+       holiday
+      end 
+    end
+  end.flatten.compact
 end
+
+#  if .include? block evaluates to true and I use the .select method instead of .collect it will return the element which made the block evaluate to true and in this case is the hash {:fourth_of_july=>["Fireworks", "BBQ"]}.  For future, solve from here 
+    
+
+ 
 
 
 
